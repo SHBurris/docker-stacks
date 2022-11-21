@@ -17,10 +17,13 @@ RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends \
     # Common useful utilities
     git \
-    nano\
+    nano \
     tzdata \
     unzip \
     vim-tiny \
+    wget \
+    curl \
+    default-jre \
     # git-over-ssh
     openssh-client \
     # less is needed to run help in R
@@ -35,14 +38,6 @@ RUN apt-get update --yes && \
     xclip && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-USER root
-
-RUN apt-get update --yes && \
-    apt install --yes --no-install-recommends \
-    wget \
-    curl \
-    default-jre
-
 ARG OPENREFINE_VERSION=3.6.2
 ARG OPENREFINE_PATH=/opt/openrefine
 RUN wget https://github.com/OpenRefine/OpenRefine/releases/download/${OPENREFINE_VERSION}/openrefine-linux-${OPENREFINE_VERSION}.tar.gz && \
@@ -52,11 +47,9 @@ RUN wget https://github.com/OpenRefine/OpenRefine/releases/download/${OPENREFINE
 RUN pip install \
     git+https://github.com/innovationOUtside/nb_serverproxy_openrefine.git@main
 
-USER ${NB_UID}
-ENV PATH="${OPENREFINE_PATH}:${PATH}"
-
 # Switch back to jovyan to avoid accidental container runs as root
 USER ${NB_UID}
+ENV PATH="${OPENREFINE_PATH}:${PATH}"
 
 # Add R mimetype option to specify how the plot returns from R to the browser
 COPY --chown=${NB_UID}:${NB_GID} Rprofile.site /opt/conda/lib/R/etc/
