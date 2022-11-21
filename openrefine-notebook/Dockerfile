@@ -40,9 +40,9 @@ RUN apt-get update --yes && \
 
 ARG OPENREFINE_VERSION=3.6.2
 ARG OPENREFINE_PATH=/opt/openrefine
-RUN wget https://github.com/OpenRefine/OpenRefine/releases/download/${OPENREFINE_VERSION}/openrefine-linux-${OPENREFINE_VERSION}.tar.gz && \
+RUN wget https://github.com/OpenRefine/OpenRefine/archive/refs/tags/"${OPENREFINE_VERSION}".tar.gz && \
     mkdir "${OPENREFINE_PATH}" && \
-    tar xzf openrefine-linux-${OPENREFINE_VERSION}.tar.gz -C "${OPENREFINE_PATH}" --strip 1
+    tar xzf "${OPENREFINE_VERSION}".tar.gz -C "${OPENREFINE_PATH}" --strip 1
 
 RUN pip install \
     git+https://github.com/innovationOUtside/nb_serverproxy_openrefine.git@main
