@@ -37,9 +37,6 @@ RUN apt-get update --yes && \
     xclip && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Create alternative for nano -> nano-tiny
-RUN update-alternatives --install /usr/bin/nano nano /bin/nano-tiny 10
-
 USER root
 
 RUN apt-get update --yes && \
