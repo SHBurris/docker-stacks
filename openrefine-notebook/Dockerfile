@@ -45,7 +45,7 @@ RUN wget "https://oss.sonatype.org/service/local/artifact/maven/content?r=releas
     tar -xzf openrefine.tar.gz -C "${OPENREFINE_PATH}" --strip 1
 
 RUN pip install \
-    git+https://github.com/innovationOUtside/nb_serverproxy_openrefine.git@main
+    git+https://gitlab.nrp-nautilus.io/SHBurris/nb_serverproxy_openrefine.git@main
 
 # Switch back to jovyan to avoid accidental container runs as root
 USER ${NB_UID}
