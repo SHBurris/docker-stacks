@@ -38,7 +38,7 @@ RUN apt-get update --yes && \
     xclip && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-ARG OPENREFINE_VERSION=3.6.2
+ARG OPENREFINE_VERSION=3.5.2
 ARG OPENREFINE_PATH=/opt/openrefine
 RUN wget https://github.com/OpenRefine/OpenRefine/releases/download/${OPENREFINE_VERSION}/openrefine-linux-${OPENREFINE_VERSION}.tar.gz && \
     mkdir "${OPENREFINE_PATH}" && \
