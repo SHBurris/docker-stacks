@@ -1,0 +1,10 @@
+image: gcr.io/kaniko-project/executor:debug
+
+stages:
+  - openrefine
+
+build-jupyter-openrefine:
+  stage: openrefine
+  script:
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --cache=true --context ${CI_PROJECT_DIR} --dockerfile ${CI_PROJECT_DIR}/openrefine-notebook/Dockerfile --destination $CI_REGISTRY_IMAGE/openrefine:${CI_COMMIT_SHA:0:8} --destination $CI_REGISTRY_IMAGE/openrefine:latest
