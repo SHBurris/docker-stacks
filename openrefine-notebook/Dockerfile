@@ -38,15 +38,16 @@ RUN apt-get update --yes && \
     #xclip && \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-#ARG OPENREFINE_VERSION=3.4.1
+#ARG OPENREFINE_VERSION=3.6.2
 ARG OPENREFINE_PATH=/opt/openrefine
-RUN wget "https://github.com/OpenRefine/OpenRefine/releases/download/3.4.1/openrefine-linux-3.4.1.tar.gz" -O openrefine.tar.gz && \
+RUN wget "https://oss.sonatype.org/service/local/artifact/maven/content?r=releases&g=org.openrefine&a=openrefine&v=3.6.2&c=linux&p=tar.gz" -O openrefine.tar.gz && \
     mkdir "${OPENREFINE_PATH}" && \
     tar -xzf openrefine.tar.gz -C "${OPENREFINE_PATH}" --strip 1
 
 RUN pip install \
-    git+https://gitlab.nrp-nautilus.io/SHBurris/nb_serverproxy_openrefine.git@main
+    git+https://github.com/innovationOUtside/nb_serverproxy_openrefine.git@main
 
 # Switch back to jovyan to avoid accidental container runs as root
 USER ${NB_UID}
 ENV PATH="${OPENREFINE_PATH}:${PATH}"
+ENV REFINE_DOMAIN="0.0.0.0"
